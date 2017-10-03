@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-// import Messages from './Messages.jsx';
 import MessageList from './MessageList.jsx';
 import ChatBar from './ChatBar.jsx';
 
 class App extends Component {
   render() {
+    console.log("Rendering <App/>");
     return (
       <div>
         <nav className="navbar">
