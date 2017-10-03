@@ -25,7 +25,7 @@ constructor(props){
     return (
       <footer className="chatbar">
         <input className="chatbar-username" placeholder="Your name (Optional)" defaultValue={this.props.user} />
-        <input className="chatbar-message" placeholder='Type a message and hit ENTER' onChange={this.handleMessageChange} value={this.state.inputValue} onKeyPress={onKeyPress}/>
+        <input className="chatbar-message" placeholder='Type a message and hit ENTER' value={this.state.inputValue} onChange={this.handleMessageChange} onKeyPress={onKeyPress}/>
       </footer>
     );
   }
