@@ -25,7 +25,6 @@ class App extends Component {
         }
       ]
     };   
-
     this.addMessage = this.addMessage.bind(this);
   }
 
@@ -41,6 +40,7 @@ class App extends Component {
   }
   
   addMessage(text, user) {
+    console.log('Posting new message...');
     const newId = this.state.messages.length + 1;
     const newMessage = {id: newId, username: user, content: text};
     const messages = this.state.messages.concat(newMessage)
