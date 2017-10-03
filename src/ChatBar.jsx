@@ -5,12 +5,13 @@ class ChatBar extends Component {
     const onKeyPress = (event) => {
       if (event.charCode === 13) {
         console.log(event.target.value);
-        this.props.addMsg(event.target.value);
+        this.props.addMsg(event.target.value, this.props.user);
+        event.target.value = '';
       }
     }
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder={this.props.user} />
+        <input className="chatbar-username" placeholder="Your name (Optional)" defaultValue={this.props.user} />
         <input className="chatbar-message" placeholder="Type a message and hit ENTER" onKeyPress={onKeyPress}/>
       </footer>
     );

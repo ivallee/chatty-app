@@ -39,16 +39,10 @@ class App extends Component {
       this.setState({messages: messages})
     }, 3000);
   }
-
-  // onContent(event) {
-  //   this.setState({
-  //     content: event.target.innerText
-  //   });
-  // }
   
-  addMessage(text) {
+  addMessage(text, user) {
     const newId = this.state.messages.length + 1;
-    const newMessage = {id: newId, username: 'AnonymousJoe', content: text};
+    const newMessage = {id: newId, username: user, content: text};
     const messages = this.state.messages.concat(newMessage)
     
     this.setState({messages: messages });
