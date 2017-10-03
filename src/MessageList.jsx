@@ -3,7 +3,7 @@ import Messages from './Messages.jsx';
 
 class MessageList extends Component {
   render() {
-    console.log("Rendering <MessageList/>");
+    console.log("Rendering <MessageList />");
     return (
       <Messages />
     );
