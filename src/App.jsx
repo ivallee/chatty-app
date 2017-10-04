@@ -3,8 +3,6 @@ import MessageList from './MessageList.jsx';
 import ChatBar from './ChatBar.jsx';
 
 
-
-
 class App extends Component {
 
   constructor(props) {
@@ -29,6 +27,14 @@ class App extends Component {
   }
 
   componentDidMount() {
+
+
+    this.socket = new WebSocket(`ws://${location.hostname}:3001`);
+    this.socket.onopen = (event) => {
+      console.log('Connected to server');
+    }
+
+
     console.log('componentDidMount <App />');
     setTimeout(() => {
       console.log('Simulating incoming message');
