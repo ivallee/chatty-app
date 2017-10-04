@@ -44,27 +44,14 @@ class App extends Component {
       console.log(JSON.parse(event.data));
     }
 
-
-    // For simulating a new message:
-    // setTimeout(() => {
-    //   console.log('Simulating incoming message');
-    //   const newMessage = {id: 3, username: 'Michelle', content: 'Hello there!'};
-    //   const messages = this.state.messages.concat(newMessage)
-
-    //   this.setState({messages: messages})
-    // }, 3000);
   }
   
   addMessage(text, user) {
     console.log('Posting new message...');
     
+    this.setState({currentUser: {name: user}});
     this.socket.send(JSON.stringify({username: user, content: text}))
     
-    // For generating new messages client-side
-    // const newId = this.state.messages.length + 1;
-    // const newMessage = {id: newId, username: user, content: text};
-    // const messages = this.state.messages.concat(newMessage)
-    // this.setState({messages: messages });
   }
 
 
@@ -77,7 +64,7 @@ class App extends Component {
         </nav>
         <MessageList messages={this.state.messages} />
 
-        <ChatBar user={this.state.currentUser.name} addMsg={this.addMessage}/>
+        <ChatBar currentUser={this.state.currentUser.name} addMsg={this.addMessage}/>
       </div>
     );
   }
