@@ -1,9 +1,8 @@
-// server.js
 
 const express = require('express');
 const SocketServer = require('ws').Server;
+const uuidv1 = require('uuid/v1');
 
-// Set the port to 3001
 const PORT = 3001;
 
 // Create a new express server
@@ -23,7 +22,8 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (message) => {
     const msg = JSON.parse(message);
-    console.log(`User ${msg.username} said ${msg.content}`)
+    msg.id = uuidv1();
+    console.log(`User ${msg.username} said ${msg.content} and their UUID is ${msg.id}`)
   });
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
