@@ -32,6 +32,15 @@ function clientJoin(set) {
   wss.broadcast(msg)
 }
 
+function clientLeave(set) {
+  const msg = {};
+  msg.id = uuidv1();
+  msg.content = 'Someone left the chat';
+  msg.clients = set;
+  msg.type = 'incomingNotification';
+  wss.broadcast(msg)
+}
+
 wss.on('connection', (ws) => {
   console.log('Client connected');
   clientJoin(wss.clients.size);
@@ -50,7 +59,6 @@ wss.on('connection', (ws) => {
        wss.broadcast(msg);
         break;
       case 'postNotification':
-        currentUser = msg.username;
         msg.id = uuidv1();
         msg.type = 'incomingNotification';
         wss.broadcast(msg);
@@ -61,5 +69,8 @@ wss.on('connection', (ws) => {
     }
 
   }); 
-  ws.on('close', () => console.log('Client disconnected'));
+  ws.on('close', () => {
+    clientLeave(wss.clients.size);
+    console.log('Client disconnected');
+  });
 });
