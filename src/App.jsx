@@ -21,10 +21,6 @@ class App extends Component {
 
     this.socket = new WebSocket(`ws://${location.hostname}:3001`);
 
-    this.socket.onopen = (event) => {
-      console.log('Connected to server');
-    }
-
     this.socket.onmessage = (event) => {
       const incoming = JSON.parse(event.data);
       const tempMessages = this.state.messages;

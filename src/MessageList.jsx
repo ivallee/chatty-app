@@ -20,7 +20,7 @@ class MessageList extends Component {
         />
           break;
         default:
-          throw new Error('Unknown event type ' + msg.type);
+          throw new Error('Unknown event type ' + post.type);
       }
     });
     return (
