@@ -20,6 +20,9 @@ node chatty-server.js
 Open http://localhost:3000/
 
 
+### Screenshots
+
+
 
 ### Dependencies (App)
 
