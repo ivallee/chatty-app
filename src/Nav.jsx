@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Nav extends Component {
   render() {
@@ -12,3 +13,7 @@ class Nav extends Component {
 }
 
 export default Nav;
+
+Nav.propTypes = {
+  clients: PropTypes.number
+}

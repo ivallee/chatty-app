@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ChatBar extends Component {
 
@@ -56,4 +57,12 @@ class ChatBar extends Component {
     );
   }
 }
+
+// Prop validation
+ChatBar.propTypes = {
+  addMessage: PropTypes.func,
+  changeUser: PropTypes.func
+};
+
+
 export default ChatBar;

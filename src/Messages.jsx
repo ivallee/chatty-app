@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Messages extends Component {
 
@@ -18,3 +19,10 @@ class Messages extends Component {
   }
 }
 export default Messages;
+
+// Prop validation
+Messages.propTypes = {
+  username: PropTypes.string,
+  content: PropTypes.string,
+  sysMessage: PropTypes.string
+};

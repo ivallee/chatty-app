@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Messages from './Messages.jsx';
+import PropTypes from 'prop-types';
 
 class MessageList extends Component {
   render() {
@@ -9,16 +10,17 @@ class MessageList extends Component {
         case 'incomingNotification':
           return <Messages
           key={post.id}
-          sysMessage={post.content}
-        />
-          break;
+          sysMessage={post.content} />
+        case 'fdfdsas':
+          return <Messages
+          key={post.id}
+          sysMessage={post.content} />
         case 'incomingMessage':
           return <Messages
           key={post.id}
           username={post.username}
           content={post.content}
         />
-          break;
         default:
           throw new Error('Unknown event type ' + post.type);
       }
@@ -30,4 +32,11 @@ class MessageList extends Component {
     );
   }
 }
+
+
 export default MessageList;
+
+// Prop validation
+MessageList.propTypes = {
+  messages: PropTypes.object,
+};
