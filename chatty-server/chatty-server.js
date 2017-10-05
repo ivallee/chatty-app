@@ -25,6 +25,7 @@ wss.broadcast = (data) => {
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
+  console.log(wss.clients.size);
 
   ws.on('message', (message) => {
     console.log('Incoming message');
