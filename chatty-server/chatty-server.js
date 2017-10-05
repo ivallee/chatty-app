@@ -20,7 +20,7 @@ wss.broadcast = (data) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify(data));
     }
-  })
+  });
 }
 
 // Handles user join/leave

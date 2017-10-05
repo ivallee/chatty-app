@@ -48,7 +48,7 @@ class ChatBar extends Component {
           />
         <input 
           className="chatbar-message" 
-          placeholder='Type a message and hit ENTER' 
+          placeholder="Type a message" 
           value={this.state.inputValue} 
           onChange={this.handleMessageField} 
           onKeyPress={this.submitMessage} 
