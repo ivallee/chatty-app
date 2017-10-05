@@ -12,6 +12,7 @@ class App extends Component {
       messages: []
     };
     this.addMessage = this.addMessage.bind(this);
+    this.changeUser = this.changeUser.bind(this);
   }
 
   componentDidMount() {
@@ -31,11 +32,25 @@ class App extends Component {
     }
   }
 
+  changeUser(user) {
+    console.log('Changing user to ' + user);
+    this.setState({ currentUser: { name: user } });
+
+  }
+
+
   addMessage(text, user) {
     console.log('Posting new message...');
+    
+    if (user !== this.state.currentUser.name) {
+      this.changeUser(user);
+    }
+    this.socket.send(JSON.stringify( { username: (user ? user : 'Anonymous'), content: text } ))
 
-    this.setState({ currentUser: { name: user } });
-    this.socket.send(JSON.stringify({ username: user, content: text }))
+    // If no username, user is anonymous
+
+    // If user exists and is different from current user,
+        // Type will be notification
 
   }
 
@@ -46,9 +61,13 @@ class App extends Component {
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
-        <MessageList messages={this.state.messages} />
+        <MessageList messages={ this.state.messages } />
 
-        <ChatBar currentUser={this.state.currentUser.name} addMsg={this.addMessage} />
+        <ChatBar 
+          currentUser={ this.state.currentUser.name } 
+          addMsg={ this.addMessage}  
+          changeUser={ this.changeUser } 
+          />
       </div>
     );
   }
