@@ -23,19 +23,11 @@ wss.broadcast = (data) => {
   })
 }
 
-function clientJoin(set) {
+// Handles user join/leave
+function clientChange(set, notificationContent) {
   const msg = {};
   msg.id = uuidv1();
-  msg.content = 'A new user has joined the chat';
-  msg.clients = set;
-  msg.type = 'incomingNotification';
-  wss.broadcast(msg)
-}
-
-function clientLeave(set) {
-  const msg = {};
-  msg.id = uuidv1();
-  msg.content = 'Someone left the chat';
+  msg.content = notificationContent;
   msg.clients = set;
   msg.type = 'incomingNotification';
   wss.broadcast(msg)
@@ -43,7 +35,7 @@ function clientLeave(set) {
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
-  clientJoin(wss.clients.size);
+  clientChange(wss.clients.size, 'A new user has joined the chat');
 
   ws.on('message', (message) => {
     console.log('Incoming message');
@@ -71,7 +63,7 @@ wss.on('connection', (ws) => {
 
   }); 
   ws.on('close', () => {
-    clientLeave(wss.clients.size);
+    clientChange(wss.clients.size, 'Someone left the chat');
     console.log('Client disconnected');
   });
 });
