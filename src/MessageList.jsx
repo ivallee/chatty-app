@@ -11,10 +11,6 @@ class MessageList extends Component {
           return <Messages
           key={post.id}
           sysMessage={post.content} />
-        case 'fdfdsas':
-          return <Messages
-          key={post.id}
-          sysMessage={post.content} />
         case 'incomingMessage':
           return <Messages
           key={post.id}
@@ -38,5 +34,5 @@ export default MessageList;
 
 // Prop validation
 MessageList.propTypes = {
-  messages: PropTypes.object,
+  messages: PropTypes.array,
 };
