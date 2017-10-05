@@ -9,29 +9,51 @@ class ChatBar extends Component {
       user: this.props.currentUser,
       inputValue: ''
     };
-    this.handleMessageChange = this.handleMessageChange.bind(this);
-    this.handleUserChange = this.handleUserChange.bind(this);
+    this.handleMessageField = this.handleMessageField.bind(this);
+    this.handleUserField = this.handleUserField.bind(this);
+    this.submitMessage = this.submitMessage.bind(this);
+    this.changeUser = this.changeUser.bind(this);
   }
-  handleMessageChange(event) {
+
+  handleMessageField(event) {
     this.setState({ inputValue: event.target.value });
   }
   
-  handleUserChange(event) {
+  handleUserField(event) {
     this.setState({ user: event.target.value });
+  }
+
+  submitMessage(event) {
+    if (event.charCode === 13 && event.target.value.length > 0) {
+      this.props.addMsg(this.state.inputValue, this.state.user);
+      this.setState({ inputValue: '' });
+    }
+  }
+
+  changeUser(event) {
+    if (event.charCode === 13 && event.target.value.length > 0) {
+      this.props.changeUser(event.target.value);
+    }
   }
 
   render() {
 
-    const onKeyPress = (event) => {
-      if (event.charCode === 13 && event.target.value.length > 0) {
-        this.props.addMsg(this.state.inputValue, this.state.user);
-        this.setState({ inputValue: '' });
-      }
-    }
     return (
       <footer className="chatbar">
-        <input className="chatbar-username" placeholder="Your name (Optional)" defaultValue={this.props.currentUser} onChange={this.handleUserChange}/>
-        <input className="chatbar-message" placeholder='Type a message and hit ENTER' value={this.state.inputValue} onChange={this.handleMessageChange} onKeyPress={onKeyPress} />
+        <input 
+          className="chatbar-username" 
+          placeholder="Your name (Optional)" 
+          defaultValue={this.props.currentUser} 
+          onChange={this.handleUserField}
+          onKeyPress={this.changeUser}
+          />
+        <input 
+          className="chatbar-message" 
+          placeholder='Type a message and hit ENTER' 
+          value={this.state.inputValue} 
+          onChange={this.handleMessageField} 
+          onKeyPress={this.submitMessage} 
+          />
       </footer>
     );
   }
