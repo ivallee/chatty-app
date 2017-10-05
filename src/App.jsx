@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentUser: {name: 'Anonymous'},
+      currentUser: { name: 'Anonymous' },
       clients: 0,
       messages: []
     };
@@ -32,8 +32,9 @@ class App extends Component {
       if (incoming.clients) {
         this.setState({ clients: incoming.clients });
       }
-      this.setState({ 
-        messages: tempMessages.concat(incoming) });
+      this.setState({
+        messages: tempMessages.concat(incoming)
+      });
     }
   }
 
@@ -42,36 +43,33 @@ class App extends Component {
     if (newUser !== oldUser) {
       this.setState({ currentUser: { name: newUser } });
       this.socket.send(JSON.stringify({
-        content: `${oldUser} has changed their name to ${newUser}`, 
-        type: 'postNotification' 
+        content: `${oldUser} has changed their name to ${newUser}`,
+        type: 'postNotification'
       }));
     }
   }
 
   addMessage(text, user) {
-    console.log('Posting new message...');
-    
     this.changeUser(user ? user : 'Anonymous');
 
-    this.socket.send(JSON.stringify( { 
-      username: (user ? user : 'Anonymous'), 
+    this.socket.send(JSON.stringify({
+      username: (user ? user : 'Anonymous'),
       content: text,
-      type: 'postMessage' 
+      type: 'postMessage'
     }));
   }
 
   render() {
-    console.log('Rendering <App/>');
     return (
       <div>
-        <Nav clients={ this.state.clients } />
-        <MessageList messages={ this.state.messages } currentUser={ this.state.currentUser } />
+        <Nav clients={this.state.clients} />
+        <MessageList messages={this.state.messages} currentUser={this.state.currentUser} />
 
-        <ChatBar 
-          currentUser={ this.state.currentUser.name } 
-          addMsg={ this.addMessage }  
-          changeUser={ this.changeUser } 
-          />
+        <ChatBar
+          currentUser={this.state.currentUser.name}
+          addMessage={this.addMessage}
+          changeUser={this.changeUser}
+        />
       </div>
     );
   }
