@@ -61,6 +61,7 @@ wss.on('connection', (ws) => {
       case 'postNotification':
         msg.id = uuidv1();
         msg.type = 'incomingNotification';
+
         wss.broadcast(msg);
 
         break;

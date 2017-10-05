@@ -29,7 +29,11 @@ class App extends Component {
     this.socket.onmessage = (event) => {
       const incoming = JSON.parse(event.data);
       const tempMessages = this.state.messages;
-      this.setState({ messages: tempMessages.concat(incoming), clients: incoming.clients });
+      if (incoming.clients) {
+        this.setState({ clients: incoming.clients });
+      }
+      this.setState({ 
+        messages: tempMessages.concat(incoming) });
     }
   }
 
