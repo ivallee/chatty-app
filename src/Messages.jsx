@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class Messages extends Component {
 
   render() {
-    console.log("Rendering <Messages/>");
     return (
 
       <div className="message">

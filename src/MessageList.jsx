@@ -23,7 +23,6 @@ class MessageList extends Component {
           throw new Error('Unknown event type ' + msg.type);
       }
     });
-    console.log("Rendering <MessageList />");
     return (
       <div className="messages">
         {posts}
