@@ -1,7 +1,7 @@
 {
   "name": "chatty-app",
   "version": "1.0.0",
-  "description": "Simple Chat app using React and WebSockets",
+  "description": "A simple chat app using React and WebSockets",
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
     "start": "node server.js"
