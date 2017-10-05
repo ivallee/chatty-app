@@ -10,6 +10,7 @@ class App extends Component {
 
     this.state = {
       currentUser: {name: 'Anonymous'},
+      clients: 0,
       messages: []
     };
     this.addMessage = this.addMessage.bind(this);
@@ -28,7 +29,7 @@ class App extends Component {
     this.socket.onmessage = (event) => {
       const incoming = JSON.parse(event.data);
       const tempMessages = this.state.messages;
-      this.setState({ messages: tempMessages.concat(incoming) });
+      this.setState({ messages: tempMessages.concat(incoming), clients: incoming.clients });
     }
   }
 
@@ -59,12 +60,12 @@ class App extends Component {
     console.log('Rendering <App/>');
     return (
       <div>
-        <Nav />
-        <MessageList messages={ this.state.messages } currentUser={this.state.currentUser} />
+        <Nav clients={ this.state.clients } />
+        <MessageList messages={ this.state.messages } currentUser={ this.state.currentUser } />
 
         <ChatBar 
           currentUser={ this.state.currentUser.name } 
-          addMsg={ this.addMessage}  
+          addMsg={ this.addMessage }  
           changeUser={ this.changeUser } 
           />
       </div>

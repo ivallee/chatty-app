@@ -23,9 +23,18 @@ wss.broadcast = (data) => {
   })
 }
 
+function clientJoin(set) {
+  const msg = {};
+  msg.id = uuidv1();
+  msg.content = 'A new user has joined the chat';
+  msg.clients = set;
+  msg.type = 'incomingNotification';
+  wss.broadcast(msg)
+}
+
 wss.on('connection', (ws) => {
   console.log('Client connected');
-  console.log(wss.clients.size);
+  clientJoin(wss.clients.size);
 
   ws.on('message', (message) => {
     console.log('Incoming message');
