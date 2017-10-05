@@ -8,7 +8,7 @@ const PORT = 3001;
 const server = express()
 
   .use(express.static('public'))
-  .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
+  .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${PORT}`));
 
 
 // Create WebSockets server
@@ -24,12 +24,13 @@ wss.broadcast = (data) => {
 }
 
 // Handles user join/leave
-function clientChange(set, notificationContent) {
+function clientChange(currentClients, notificationContent) {
   const msg = {};
   msg.id = uuidv1();
   msg.content = notificationContent;
-  msg.clients = set;
+  msg.clients = currentClients;
   msg.type = 'incomingNotification';
+  console.log('Broadcasting message');
   wss.broadcast(msg)
 }
 
@@ -39,29 +40,27 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (message) => {
     console.log('Incoming message');
-    
+
     const msg = JSON.parse(message);
 
-    switch(msg.type) {
+    switch (msg.type) {
       case 'postMessage':
-       console.log(`User: ${msg.username} says: ${msg.content}`)
-       msg.id = uuidv1();
-       msg.type = 'incomingMessage';
-       console.log('Broadcasting message');
-       wss.broadcast(msg);
+        console.log(`User: ${msg.username}. Message: ${msg.content}`)
+        msg.id = uuidv1();
+        msg.type = 'incomingMessage';
+        wss.broadcast(msg);
+
         break;
       case 'postNotification':
         msg.id = uuidv1();
         msg.type = 'incomingNotification';
-
         wss.broadcast(msg);
 
         break;
       default:
         throw new Error('Unknown event type ' + msg.type);
     }
-
-  }); 
+  });
   ws.on('close', () => {
     clientChange(wss.clients.size, 'Someone left the chat');
     console.log('Client disconnected');
