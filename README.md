@@ -2,6 +2,9 @@
 
 A simple chat app using React and WebSockets.
 
+
+![ChattyApp screenshot](https://github.com/ivallee/chatty-app/blob/master/docs/screen1.png?raw=true)
+
 ### Getting started
 
 -Install dependencies using npm install
@@ -18,9 +21,6 @@ node chatty-server.js
 ```
 
 Open http://localhost:3000/
-
-
-### Screenshots
 
 
 
