@@ -28,12 +28,28 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (message) => {
     console.log('Incoming message');
+    
     const msg = JSON.parse(message);
-    console.log(`User: ${msg.username} says: ${msg.content}`)
-    msg.id = uuidv1();
-    console.log('Broadcasting message');
 
-  wss.broadcast(msg);
+    switch(msg.type) {
+      case 'postMessage':
+       console.log(`User: ${msg.username} says: ${msg.content}`)
+       msg.id = uuidv1();
+       msg.type = 'incomingMessage';
+       console.log('Broadcasting message');
+       wss.broadcast(msg);
+        break;
+      case 'postNotification':
+        currentUser = msg.username;
+        msg.id = uuidv1();
+        msg.type = 'incomingNotification';
+        wss.broadcast(msg);
+
+        break;
+      default:
+        throw new Error('Unknown event type ' + msg.type);
+    }
+
   }); 
   ws.on('close', () => console.log('Client disconnected'));
 });

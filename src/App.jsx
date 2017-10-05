@@ -8,7 +8,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentUser: '',
+      currentUser: {name: 'Anonymous'},
       messages: []
     };
     this.addMessage = this.addMessage.bind(this);
@@ -26,10 +26,8 @@ class App extends Component {
 
     this.socket.onmessage = (event) => {
       const incoming = JSON.parse(event.data);
-      console.log(incoming.type);
       const tempMessages = this.state.messages;
-      tempMessages.push(incoming);
-      this.setState(tempMessages);
+      this.setState({ messages: tempMessages.concat(incoming) });
     }
   }
 
@@ -37,24 +35,23 @@ class App extends Component {
     const oldUser = this.state.currentUser.name;
     if (newUser !== oldUser) {
       this.setState({ currentUser: { name: newUser } });
-      this.socket.send(JSON.stringify({content: `${oldUser} has changed their name to ${newUser}`, type: 'postNotification' }))
+      this.socket.send(JSON.stringify({
+        content: `${oldUser} has changed their name to ${newUser}`, 
+        type: 'postNotification' 
+      }));
     }
   }
 
   addMessage(text, user) {
     console.log('Posting new message...');
     
-    this.changeUser(user);
+    this.changeUser(user ? user : 'Anonymous');
 
-    this.socket.send(JSON.stringify( { username: (user ? user : 'Anonymous'), 
-                                        content: text,
-                                           type: "postMessage" } ))
-
-    // If no username, user is anonymous
-
-    // If user exists and is different from current user,
-        // Type will be notification
-
+    this.socket.send(JSON.stringify( { 
+      username: (user ? user : 'Anonymous'), 
+      content: text,
+      type: 'postMessage' 
+    }));
   }
 
   render() {
@@ -64,7 +61,7 @@ class App extends Component {
         <nav className="navbar">
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
-        <MessageList messages={ this.state.messages } />
+        <MessageList messages={ this.state.messages } currentUser={this.state.currentUser} />
 
         <ChatBar 
           currentUser={ this.state.currentUser.name } 
