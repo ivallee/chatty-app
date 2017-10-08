@@ -7,8 +7,9 @@ A simple chat app using React and WebSockets.
 
 ### Getting started
 
--Install dependencies using npm install
-  -chatty-server has it's own dependencies that need to be installed as well. Be sure to run npm install from the chatty-server folder
+- Install dependencies using npm install
+  
+- Chatty-server has it's own dependencies that need to be installed as well. Be sure to run npm install from the chatty-server folder
 
 -Run the app
 ```
